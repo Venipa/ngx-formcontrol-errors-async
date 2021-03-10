@@ -1,27 +1,58 @@
 # AsyncFormControlErrors
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.3.
+Handle your form control errors like a champ.   
+Async is the way!!!
 
-## Development server
+# Example
+```typescript
+import { Component, OnInit } from "@angular/core";
+@prepareFormErrorObservables()
+@Component({
+  selector: "app-test-async-controls",
+  template: `
+    <form [formGroup]="group">
+      <mat-form-field>
+        <input matInput formControlName="name" type="text" />
+        <mat-error *ngIf="getErrorObservable('name') | async as error">
+          {{ error.content | translate }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="description" type="text" />
+        <mat-error *ngIf="getErrorObservable('description') | async as error">
+          {{ error.content | translate }}
+        </mat-error>
+      </mat-form-field>
+    </form>
+  `,
+})
+export class TestAsyncControlsComponent implements OnInit {
+  group = new FormGroup({
+    name: new FormControl("", [Validators.required, Validators.minLength(3)]),
+    description: new FormControl("", [
+      Validators.required,
+      Validators.maxLength(255),
+    ]),
+  });
+  constructor() {}
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+  ngOnInit(): void {}
+  getErrorObservable(controlName: string) {
+    return useFormErrorObservable(this)(
+      controlName,
+      () => this.group.controls[controlName],
+      {
+        required: (error, ctrl) => ({
+          content: `The ${controlName} field is required`,
+        }),
+        minLength: (error, ctrl) => ({
+          content: `The ${controlName} must be greater than or equal ${error.requiredLength} characters.`,
+        }),
+        maxLength: (error, ctrl) => ({
+          content: `The ${controlName} must be less than ${error.requiredLength} characters`,
+        }),
+      }
+    );
+  }
+}
+```
