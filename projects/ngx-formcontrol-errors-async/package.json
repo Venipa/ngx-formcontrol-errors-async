@@ -1,6 +1,6 @@
 {
   "name": "ngx-formcontrol-errors-async",
-  "version": "0.9.6",
+  "version": "0.9.8",
   "repository": "https://github.com/Venipa/ngx-formcontrol-errors-async",
   "author": "Venipa <admin@venipa.net>",
   "description": "Handle your form control errors like a champ. Async is the way!!!",

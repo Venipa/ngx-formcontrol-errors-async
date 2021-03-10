@@ -1,11 +1,20 @@
 # AsyncFormControlErrors
 
-Handle your form control errors like a champ.   
+Handle your form control errors like a champ.  
 Async is the way!!!
 
 # Example
+
+We recommend using [@angular/material](https://material.angular.io/) for using this Library but its optional
+
 ```typescript
 import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import {
+  prepareFormErrorObservables,
+  useFormErrorObservable
+} from "ngx-formcontrol-errors-async";
+
 @prepareFormErrorObservables()
 @Component({
   selector: "app-test-async-controls",
