@@ -4,8 +4,8 @@ import { Observable, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
 const OBSERVABLE_FORM_ERROR_PROPNAME = {
-  OBSERVABLE_STORE = '__formcontrol_observables',
-  OBSERVABLE_KILL_NOTIFY = '__formcontrol_observableKill',
+  OBSERVABLE_STORE: '__formcontrol_observables',
+  OBSERVABLE_KILL_NOTIFY: '__formcontrol_observableKill',
 };
 export function prepareFormErrorObservables(): ClassDecorator {
   return (_type: any) => {
