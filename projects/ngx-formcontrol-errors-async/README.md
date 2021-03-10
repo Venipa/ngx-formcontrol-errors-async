@@ -1,24 +1,58 @@
-# NgxFormcontrolErrorsAsync
+# AsyncFormControlErrors
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
+Handle your form control errors like a champ.   
+Async is the way!!!
 
-## Code scaffolding
+# Example
+```typescript
+import { Component, OnInit } from "@angular/core";
+@prepareFormErrorObservables()
+@Component({
+  selector: "app-test-async-controls",
+  template: `
+    <form [formGroup]="group">
+      <mat-form-field>
+        <input matInput formControlName="name" type="text" />
+        <mat-error *ngIf="getErrorObservable('name') | async as error">
+          {{ error.content | translate }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="description" type="text" />
+        <mat-error *ngIf="getErrorObservable('description') | async as error">
+          {{ error.content | translate }}
+        </mat-error>
+      </mat-form-field>
+    </form>
+  `,
+})
+export class TestAsyncControlsComponent implements OnInit {
+  group = new FormGroup({
+    name: new FormControl("", [Validators.required, Validators.minLength(3)]),
+    description: new FormControl("", [
+      Validators.required,
+      Validators.maxLength(255),
+    ]),
+  });
+  constructor() {}
 
-Run `ng generate component component-name --project ngx-formcontrol-errors-async` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-formcontrol-errors-async`.
-> Note: Don't forget to add `--project ngx-formcontrol-errors-async` or else it will be added to the default project in your `angular.json` file. 
-
-## Build
-
-Run `ng build ngx-formcontrol-errors-async` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build ngx-formcontrol-errors-async`, go to the dist folder `cd dist/ngx-formcontrol-errors-async` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test ngx-formcontrol-errors-async` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+  ngOnInit(): void {}
+  getErrorObservable(controlName: string) {
+    return useFormErrorObservable(this)(
+      controlName,
+      () => this.group.controls[controlName],
+      {
+        required: (error, ctrl) => ({
+          content: `The ${controlName} field is required`,
+        }),
+        minLength: (error, ctrl) => ({
+          content: `The ${controlName} must be greater than or equal ${error.requiredLength} characters.`,
+        }),
+        maxLength: (error, ctrl) => ({
+          content: `The ${controlName} must be less than ${error.requiredLength} characters`,
+        }),
+      }
+    );
+  }
+}
+```
