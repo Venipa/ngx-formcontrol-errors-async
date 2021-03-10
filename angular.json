@@ -3,5 +3,46 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "ngx-formcontrol-errors-async": {
+      "projectType": "library",
+      "root": "projects/ngx-formcontrol-errors-async",
+      "sourceRoot": "projects/ngx-formcontrol-errors-async/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ngx-formcontrol-errors-async/tsconfig.lib.json",
+            "project": "projects/ngx-formcontrol-errors-async/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-formcontrol-errors-async/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-formcontrol-errors-async/src/test.ts",
+            "tsConfig": "projects/ngx-formcontrol-errors-async/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-formcontrol-errors-async/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-formcontrol-errors-async/tsconfig.lib.json",
+              "projects/ngx-formcontrol-errors-async/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ngx-formcontrol-errors-async"
 }

@@ -10,6 +10,16 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "paths": {
+      "ng-formcontrol-errors-async": [
+        "dist/ng-formcontrol-errors-async/ng-formcontrol-errors-async",
+        "dist/ng-formcontrol-errors-async"
+      ],
+      "ngx-formcontrol-errors-async": [
+        "dist/ngx-formcontrol-errors-async/ngx-formcontrol-errors-async",
+        "dist/ngx-formcontrol-errors-async"
+      ]
+    },
     "target": "es2015",
     "module": "es2020",
     "lib": [
