@@ -1,9 +1,10 @@
 {
   "name": "ngx-formcontrol-errors-async",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "repository": "https://github.com/Venipa/ngx-formcontrol-errors-async",
   "author": "Venipa <admin@venipa.net>",
   "description": "Handle your form control errors like a champ. Async is the way!!!",
+  "keywords": ["angular", "ngx", "formcontrol", "@angular/forms", "ngx-formcontrol-async", "async", "rxjs"],
   "peerDependencies": {
     "@angular/common": "^11.2.4",
     "@angular/core": "^11.2.4",
